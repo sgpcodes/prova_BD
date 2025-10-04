@@ -1,0 +1,33 @@
+version: "3"  # Versão do Docker Compose (define sintaxe e recursos)
+
+# ______________________________________________________________________________________________________
+
+services:     # Definição dos serviços (containers) do projeto
+
+  # Serviço da aplicação FastAPI
+  app:
+    build: .  # Constrói a imagem a partir do Dockerfile na raiz do projeto
+    ports:
+      - "8000:8000"  # Mapeia porta 8000 do host para o container
+    environment:     # Variáveis de ambiente para configuração da aplicação
+      - REDIS_URL=redis://redis:6379/0       # URL de conexão com o Redis (nome do serviço como host)
+      - MONGO_URL=mongodb://mongo:27017      # URL de conexão com o MongoDB
+      - MONGO_DB=chatdb                      # Nome do banco de dados MongoDB
+    depends_on:      # Garante que Redis e Mongo estejam ativos antes de iniciar o app
+      - redis
+      - mongo
+    command: uvicorn main:app --host 0.0.0.0 --reload
+    # Comando para rodar a aplicação FastAPI usando Uvicorn
+    # --reload ativa recarregamento automático (desenvolvimento)
+
+  # Serviço Redis
+  redis:
+    image: redis:7  # Usa a imagem oficial Redis versão 7
+
+  # Serviço MongoDB
+  mongo:
+    image: mongo:6  # Usa a imagem oficial MongoDB versão 6
+    ports:
+      - "27017:27017"  # Expõe a porta 27017 para acesso externo (ex: Compass ou apps locais)
+
+# ______________________________________________________________________________________________________

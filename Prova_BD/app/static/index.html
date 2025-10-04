@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Chat FastAPI + Redis + MongoDB</title>
+  <!-- Importa o CSS principal do chat -->
+  <link rel="stylesheet" href="Style.css">
+</head>
+<body>
+  <!-- Container principal do chat -->
+  <div id="chat-container">
+    <!-- Título do chat -->
+    <h1>Bate Papo</h1>
+    <!-- Indicador de status de conexão -->
+    <div id="online">Conectado</div>
+    <!-- Área dinâmica para exibição das mensagens -->
+    <div id="chat"></div>
+    <!-- Área de input e envio de mensagens -->
+    <div id="input-area">
+      <input id="msg" type="text" placeholder="Digite sua mensagem..." autocomplete="off" />
+      <button id="send">Enviar</button>
+    </div>
+  </div>
+  <!-- Script principal do chat (WebSocket e lógica de UI) -->
+  <script src="chat.js"></script>
+</body>
+</html>
